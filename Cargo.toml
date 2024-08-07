@@ -1,0 +1,11 @@
+[package]
+name = "smee"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+
+[dependencies.nom]
+version="*"
+features=[]
