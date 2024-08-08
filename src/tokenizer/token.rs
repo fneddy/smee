@@ -1,3 +1,4 @@
+#[cfg(any(debug_assertions, test))]
 use core::fmt::Debug;
 
 use nom::branch::alt;
@@ -9,7 +10,7 @@ use nom::error::{Error, ParseError};
 use nom::sequence::{ preceded, terminated};
 use nom::IResult;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum Token<'a> {
     Comment(&'a [u8]),
     DecInt((&'a [u8],i32)),
@@ -18,7 +19,7 @@ pub enum Token<'a> {
     Word(&'a [u8]),
 }
 impl<'a> Token<'a> {
-    pub fn raw(&self) -> &[u8]{
+    pub fn raw(&self) -> &'a [u8]{
         match self {
             Token::Comment(data) => data,
             Token::DecInt((data,_)) => data,
@@ -100,7 +101,7 @@ fn _parse_float(_input: &[u8])->IResult<&[u8], Token> {
 }
 
 
-pub fn parse_next(input: &[u8])->IResult<&[u8], Token> {
+pub fn parse_next<'a>(input: &'a [u8])->IResult<&'a [u8], Token<'a>> {
     preceded(
         space0,
             alt((

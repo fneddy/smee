@@ -5,7 +5,7 @@ pub struct TokenStream<'a> {
     rest: &'a [u8]
 }
 impl<'a> TokenStream<'a> {
-    pub fn new(data: &[u8]) -> TokenStream{
+    pub fn new(data: &'a [u8]) -> TokenStream<'a>{
         TokenStream {
             data: data,
             rest: data
