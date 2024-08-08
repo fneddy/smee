@@ -38,13 +38,13 @@ mod tests {
     fn test_tokenstream_iterator() {
         let mut ts = TokenStream::new(b"4 5 + ");
 
-        assert_eq!(ts.next(), Some(Token::DecInt(b"4")));
-        assert_eq!(ts.next(), Some(Token::DecInt(b"5")));
+        assert_eq!(ts.next(), Some(Token::DecInt((b"4",4))));
+        assert_eq!(ts.next(), Some(Token::DecInt((b"5",5))));
         assert_eq!(ts.next(), Some(Token::Word(b"+")));
         assert_eq!(ts.next(), None);
         ts.reset();
-        assert_eq!(ts.next(), Some(Token::DecInt(b"4")));
-        assert_eq!(ts.next(), Some(Token::DecInt(b"5")));
+        assert_eq!(ts.next(), Some(Token::DecInt((b"4",4))));
+        assert_eq!(ts.next(), Some(Token::DecInt((b"5",5))));
         assert_eq!(ts.next(), Some(Token::Word(b"+")));
         assert_eq!(ts.next(), None);
     }
